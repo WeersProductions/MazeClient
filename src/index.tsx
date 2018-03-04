@@ -22,7 +22,6 @@ const MoveButton = styled("button")`
 `;
 
 interface State {
-  viewerType: number;
   x: number;
   y: number;
   tileData: ReturnInfo;
@@ -30,7 +29,6 @@ interface State {
 
 export default class App extends React.Component<{}, State> {
   state = {
-    viewerType: 0,
     x: 0,
     y: 0,
     tileData: {
@@ -44,10 +42,22 @@ export default class App extends React.Component<{}, State> {
 
   buttonClick(deltaX: number, deltaY: number) {
     this.setState({
-      viewerType: this.state.viewerType + 1,
       x: this.state.x + deltaX,
       y: this.state.y + deltaY
     });
+    var url: string =
+      "http://iapandora.nl/maze/api/" + this.state.x + "/" + this.state.y;
+    console.log(url);
+    this.setState({
+      tileData: this.get(url)
+    });
+  }
+
+  get(url: string) {
+    var Httpreq = new XMLHttpRequest();
+    Httpreq.open("GET", url, false);
+    Httpreq.send(null);
+    return JSON.parse(Httpreq.responseText);
   }
 
   render() {
@@ -55,8 +65,7 @@ export default class App extends React.Component<{}, State> {
       <div style={styles}>
         <GridLocation
           {...{
-            returnInfo: this.state.tileData,
-            viewerType: this.state.viewerType
+            returnInfo: this.state.tileData
           }}
         />
         <MoveButton onClick={e => this.buttonClick(-1, 0)}>Left</MoveButton>
