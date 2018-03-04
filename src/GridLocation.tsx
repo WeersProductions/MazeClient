@@ -16,7 +16,6 @@ export interface ReturnInfo {
 
 interface gridData {
   returnInfo: ReturnInfo;
-  viewerType: number;
 }
 
 export default class GridLocation extends React.Component<gridData, any> {

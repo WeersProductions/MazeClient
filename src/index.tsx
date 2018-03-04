@@ -35,7 +35,7 @@ export default class App extends React.Component<{}, State> {
     y: 0,
     tileData: {
       text: "asdf",
-      moveUp: { canMove: false, type: "empty" },
+      moveUp: { canMove: true, type: "empty" },
       moveDown: { canMove: true, type: "empty" },
       moveLeft: { canMove: true, type: "empty" },
       moveRight: { canMove: true, type: "empty" }
