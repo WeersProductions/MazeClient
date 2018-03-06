@@ -45,16 +45,20 @@ export default class App extends React.Component<{}, State> {
   version = 0;
 
   buttonClick(deltaX: number, deltaY: number) {
-    this.setState({
-      x: this.state.x + deltaX,
-      y: this.state.y + deltaY,
-      started: true
-    });
-    var url: string =
-      "https://iapandora.nl/maze/api/" + this.state.x + "/" + this.state.y;
+    this.setState(
+      {
+        x: this.state.x + deltaX,
+        y: this.state.y + deltaY,
+        started: true
+      },
+      () => {
+        var url: string =
+          "https://iapandora.nl/maze/api/" + this.state.x + "/" + this.state.y;
 
-    this.version++;
-    this.get(url, this.version);
+        this.version++;
+        this.get(url, this.version);
+      }
+    );
   }
 
   async get(url: string, version: number) {
