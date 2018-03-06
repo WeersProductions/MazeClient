@@ -14,11 +14,11 @@ export interface ReturnInfo {
   moveLeft: MoveInfo;
 }
 
-interface gridData {
+interface GridData {
   returnInfo: ReturnInfo;
 }
 
-export default class GridLocation extends React.Component<gridData, {}> {
+export default class GridLocation extends React.Component<GridData, {}> {
   _columns: Array<{ key: string; name: string }> = [
     { key: "dir", name: "Direction" },
     { key: "type", name: "Type" },
@@ -74,7 +74,7 @@ export default class GridLocation extends React.Component<gridData, {}> {
 
   rowGetter = (i: number) => {
     return this._rows[i];
-  };
+  }
 
   render() {
     {
