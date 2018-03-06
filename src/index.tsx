@@ -25,6 +25,7 @@ interface State {
   x: number;
   y: number;
   tileData: ReturnInfo;
+  started: boolean;
 }
 
 export default class App extends React.Component<{}, State> {
@@ -37,7 +38,8 @@ export default class App extends React.Component<{}, State> {
       moveDown: { canMove: true, type: "empty" },
       moveLeft: { canMove: true, type: "empty" },
       moveRight: { canMove: true, type: "empty" }
-    }
+    },
+    started: false
   };
 
   buttonClick(deltaX: number, deltaY: number) {
@@ -61,19 +63,29 @@ export default class App extends React.Component<{}, State> {
   }
 
   render() {
-    return (
-      <div style={styles}>
-        <GridLocation
-          {...{
-            returnInfo: this.state.tileData
-          }}
-        />
-        <MoveButton onClick={e => this.buttonClick(-1, 0)}>Left</MoveButton>
-        <MoveButton onClick={e => this.buttonClick(1, 0)}>Right</MoveButton>
-        <MoveButton onClick={e => this.buttonClick(0, 1)}>Up</MoveButton>
-        <MoveButton onClick={e => this.buttonClick(0, -1)}>Down</MoveButton>
-      </div>
-    );
+    var result;
+    if (this.state.started) {
+      result = (
+        <div>
+          <GridLocation
+            {...{
+              returnInfo: this.state.tileData
+            }}
+          />
+          <MoveButton onClick={e => this.buttonClick(-1, 0)}>Left</MoveButton>
+          <MoveButton onClick={e => this.buttonClick(1, 0)}>Right</MoveButton>
+          <MoveButton onClick={e => this.buttonClick(0, 1)}>Up</MoveButton>
+          <MoveButton onClick={e => this.buttonClick(0, -1)}>Down</MoveButton>
+        </div>
+      );
+    } else {
+      result = (
+        <div>
+          <MoveButton onClick={e => this.buttonClick(0, 0)}>Start</MoveButton>
+        </div>
+      );
+    }
+    return <div style={styles}>{result}</div>;
   }
 }
 
