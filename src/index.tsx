@@ -46,7 +46,7 @@ export default class App extends React.Component<{}, State> {
       y: this.state.y + deltaY
     });
     var url: string =
-      "http://iapandora.nl/maze/api/" + this.state.x + "/" + this.state.y;
+      "https://iapandora.nl/maze/api/" + this.state.x + "/" + this.state.y;
     console.log(url);
     this.setState({
       tileData: this.get(url)
