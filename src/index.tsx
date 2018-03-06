@@ -42,6 +42,8 @@ export default class App extends React.Component<{}, State> {
     started: false
   };
 
+  version = 0;
+
   buttonClick(deltaX: number, deltaY: number) {
     this.setState({
       x: this.state.x + deltaX,
@@ -50,16 +52,19 @@ export default class App extends React.Component<{}, State> {
     });
     var url: string =
       "https://iapandora.nl/maze/api/" + this.state.x + "/" + this.state.y;
-    this.setState({
-      tileData: this.get(url)
-    });
+
+    this.version++;
+    this.get(url, this.version);
   }
 
-  get(url: string) {
-    var Httpreq = new XMLHttpRequest();
-    Httpreq.open("GET", url, false);
-    Httpreq.send(null);
-    return JSON.parse(Httpreq.responseText);
+  async get(url: string, version: number) {
+    const data = await fetch(url).then(x => x.json());
+
+    if (this.version === version) {
+      this.setState({
+        tileData: data
+      });
+    }
   }
 
   render() {
