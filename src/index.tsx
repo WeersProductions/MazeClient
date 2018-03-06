@@ -45,7 +45,8 @@ export default class App extends React.Component<{}, State> {
   buttonClick(deltaX: number, deltaY: number) {
     this.setState({
       x: this.state.x + deltaX,
-      y: this.state.y + deltaY
+      y: this.state.y + deltaY,
+      started: true
     });
     var url: string =
       "https://iapandora.nl/maze/api/" + this.state.x + "/" + this.state.y;
