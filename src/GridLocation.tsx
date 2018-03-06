@@ -18,7 +18,7 @@ interface gridData {
   returnInfo: ReturnInfo;
 }
 
-export default class GridLocation extends React.Component<gridData, any> {
+export default class GridLocation extends React.Component<gridData, {}> {
   _columns: Array<{ key: string; name: string }> = [
     { key: "dir", name: "Direction" },
     { key: "type", name: "Type" },
@@ -34,26 +34,34 @@ export default class GridLocation extends React.Component<gridData, any> {
 
   createRows(data: ReturnInfo) {
     this._rows = [];
-    this._rows.push({
-      dir: "Down",
-      type: data.moveDown.type,
-      walk: this.getWalkable(data.moveDown.canMove)
-    });
-    this._rows.push({
-      dir: "Right",
-      type: data.moveRight.type,
-      walk: this.getWalkable(data.moveRight.canMove)
-    });
-    this._rows.push({
-      dir: "Up",
-      type: data.moveUp.type,
-      walk: this.getWalkable(data.moveUp.canMove)
-    });
-    this._rows.push({
-      dir: "Left",
-      type: data.moveLeft.type,
-      walk: this.getWalkable(data.moveLeft.canMove)
-    });
+    if (!!data.moveDown) {
+      this._rows.push({
+        dir: "Down",
+        type: data.moveDown.type,
+        walk: this.getWalkable(data.moveDown.canMove)
+      });
+    }
+    if (!!data.moveRight) {
+      this._rows.push({
+        dir: "Right",
+        type: data.moveRight.type,
+        walk: this.getWalkable(data.moveRight.canMove)
+      });
+    }
+    if (!!data.moveUp) {
+      this._rows.push({
+        dir: "Up",
+        type: data.moveUp.type,
+        walk: this.getWalkable(data.moveUp.canMove)
+      });
+    }
+    if (!!data.moveLeft) {
+      this._rows.push({
+        dir: "Left",
+        type: data.moveLeft.type,
+        walk: this.getWalkable(data.moveLeft.canMove)
+      });
+    }
   }
 
   getWalkable(canMove: boolean): string {
